@@ -1,0 +1,13 @@
+{
+  "appId": "com.capture.app",
+  "appName": "capture",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/capture",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

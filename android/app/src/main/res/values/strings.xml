@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">capture</string>
+    <string name="title_activity_main">capture</string>
+    <string name="package_name">com.capture.app</string>
+    <string name="custom_url_scheme">com.capture.app</string>
+</resources>

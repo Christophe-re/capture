@@ -1,0 +1,13 @@
+.result-crop {
+  width: 100%;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+input[type="file"] {
+  display: none;
+}
