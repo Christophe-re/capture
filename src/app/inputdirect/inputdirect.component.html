@@ -1,6 +1,11 @@
 <div class="container">
+  <div *ngIf="!imageChangedEvent" class="logo">
+    <img src="../assets/Saint-Gobain_logo.png" alt="">
+  </div>
   <div *ngIf="!imageChangedEvent"  class="first-photo">
-    <label class="btn btn-primary photo-btn fist- button" for="inputGroupFile03">      
+    <label class="btn btn-primary photo-btn fist- button" for="inputGroupFile03">  
+      <span>Appareil Photo</span> &nbsp;
+
       <input type="file" class="custom-file-input" accept="image/*" capture="environment" (change)="fileChangeEvent($event)" id="inputGroupFile03">
       <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-camera-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>

@@ -21,7 +21,7 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     FormsModule,
         RouterModule.forRoot([
-      { path: '',   redirectTo: '/mediadevice', pathMatch: 'full' },
+          { path: '',   redirectTo: '/inputdirect', pathMatch: 'full' },
       { path: 'mediadevice', component: MediadeviceComponent },
       { path: 'inputdirect', component: InputdirectComponent },
     ]),
