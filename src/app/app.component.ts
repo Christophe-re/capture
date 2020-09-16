@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { GeolocationPosition, Plugins, CameraResultType, CameraDirection } from '@capacitor/core';
 import { Subscription, timer } from 'rxjs';
 @Component({
@@ -8,10 +9,12 @@ import { Subscription, timer } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('splashcreen', { static: true }) splashcreen: ElementRef;
-
+  url: string;
   subTimer: Subscription;
   source = timer(1000, 2000);
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private route: ActivatedRoute) {}
 
   ngOnInit() {
   this.subTimer = this.source.subscribe(val => {
@@ -20,6 +23,10 @@ export class AppComponent implements OnInit, OnDestroy {
       this.renderer.setStyle(this.splashcreen.nativeElement, 'visibility',  'hidden');
     }
   });
+  this.route.paramMap.subscribe(params => {
+    params.get()
+    console.log(params)
+  })
   }
 
 
