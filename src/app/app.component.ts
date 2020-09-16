@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router) {}
 
   ngOnInit() {
+  this.router.navigate(['']);
   this.subTimer = this.source.subscribe(val => {
     if (val === 1) {
       this.renderer.setStyle(this.splashcreen.nativeElement, 'display',  'none');
