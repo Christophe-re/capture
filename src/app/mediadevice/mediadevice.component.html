@@ -16,7 +16,10 @@
 		</div>
 		<div class="p-2">
 			<canvas #canvas class="vid"></canvas>
-		</div>
+    </div>
+    <div class="p-2" *ngIf="activateSaveButton">
+      <button (click)="save()" class="btn btn-primary save-btn">SAVE</button>
+    </div>
 	</div>
 </div>
 
