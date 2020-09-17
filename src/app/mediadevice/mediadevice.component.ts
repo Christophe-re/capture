@@ -25,9 +25,14 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
   };
   stream;
   activateSaveButton = false;
+  isLandscapeMode: boolean;
+
 
 
   constructor(private renderer: Renderer2) {
+    window.addEventListener('orientationchange', (event) => {
+      this.stopCamera(true);
+    }, false);
   }
 
   ngOnInit(): void {
@@ -39,11 +44,11 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
   }
 
   startCamera(): void {
-      if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
-          navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
-      } else {
-          alert('Sorry, camera not available.');
-      }
+    if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
+        navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
+    } else {
+        alert('Sorry, camera not available.');
+    }
   }
 
   attachVideo(stream): void {
@@ -53,7 +58,10 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
           this.videoHeight = this.videoElement.nativeElement.videoHeight ;
           this.videoWidth = this.videoElement.nativeElement.videoWidth ;
 
-          this.selectionHeight = this.videoElement.nativeElement.offsetHeight * 0.666 ;
+          this.isLandscapeMode = window.innerWidth > window.innerHeight;
+
+          // tslint:disable-next-line: max-line-length
+          this.selectionHeight = this.isLandscapeMode ? this.videoElement.nativeElement.offsetHeight * 0.666  : this.videoElement.nativeElement.offsetHeight * 0.333;
           this.selectionWidth = this.videoElement.nativeElement.offsetWidth * 0.8 ;
 
           this.renderer.setStyle(this.selection.nativeElement, 'width',  this. selectionWidth + 'px');
@@ -66,16 +74,20 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
 
     const sx = this.videoWidth * 0.1;
 
-    const sy = (this.videoHeight * 0.333) / 2;
+    const sy = this.isLandscapeMode ? (this.videoHeight * 0.333) / 2 : (this.videoHeight * 0.666) / 2;
     const swidth = this.videoWidth * 0.8;
-    const sheight = this.videoHeight * 0.666;
+    const sheight = this.isLandscapeMode ? this.videoHeight * 0.666 : this.videoHeight * 0.333;
     const x = 0;
     const y = 0;
     const width = this.videoWidth * 0.8;
-    const height = this.videoHeight * 0.666;
+    const height = this.isLandscapeMode ? this.videoHeight * 0.666 : this.videoHeight * 0.333 ;
 
     this.renderer.setProperty(this.canvas.nativeElement, 'width', this.videoWidth * 0.8);
-    this.renderer.setProperty(this.canvas.nativeElement, 'height', this.videoHeight * 0.666);
+    if (this.isLandscapeMode) {
+      this.renderer.setProperty(this.canvas.nativeElement, 'height', this.videoHeight * 0.666);
+    } else {
+      this.renderer.setProperty(this.canvas.nativeElement, 'height', this.videoHeight * 0.333);
+    }
 
     this.canvas.nativeElement.getContext('2d').drawImage(this.videoElement.nativeElement, sx , sy, swidth, sheight,  x, y, width, height);
     this.activateSaveButton = true;
