@@ -13,6 +13,7 @@
       </svg>
     </label>
   </div>
+  <div *ngIf="!imageChangedEvent"  class="blank-bottom"></div>
 
 
 
@@ -48,6 +49,7 @@
         (imageLoaded)="imageLoaded()"
         (cropperReady)="cropperReady($event)"
         (loadImageFailed)="loadImageFailed()"
+        (imageCroppedFile)="fileCropped($event)"
         [cropper]="cropper"
         format="jpeg">
       </image-cropper>

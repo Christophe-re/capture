@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Filesystem, FilesystemDirectory, Capacitor } from '@capacitor/core';
 import { ImageTransform, ImageCroppedEvent, base64ToFile, Dimensions } from 'ngx-image-cropper';
@@ -10,7 +11,7 @@ import { ImageTransform, ImageCroppedEvent, base64ToFile, Dimensions } from 'ngx
 
 export class InputdirectComponent  {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
   imgB64;
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -30,6 +31,12 @@ export class InputdirectComponent  {
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
+
+  fileCropped(blob: Blob) {
+    const file = new File([blob], 'image.png');
+    console.log('fileCropped');
+    // upload the file
+}
 
   imageCropped(event: ImageCroppedEvent): void  {
     this.croppedImage = event.base64;
@@ -129,10 +136,35 @@ export class InputdirectComponent  {
     const fileName = 'image' + time + '.jpeg';
    // const contentType = 'image/jpeg';
   //  const linkSource = `data:${contentType};base64,${this.croppedImage}`;
+
+
     const downloadLink = document.createElement('a');
     downloadLink.href = this.croppedImage;
     downloadLink.download = fileName;
-    downloadLink.click();
+   // downloadLink.click();
+
+    this.onUpload(downloadLink);
+  }
+
+  onUpload(downloadLink) {
+    // this.http is the injected HttpClient
+    const uploadData = base64ToFile(this.croppedImage);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+      })
+    };
+    const body = {
+      upload: downloadLink.href,
+  }
+  const formData = new FormData();
+
+  formData.append('upload', uploadData);
+   // uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+    this.http.post('/ocr', formData)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
 }

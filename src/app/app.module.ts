@@ -9,6 +9,7 @@ import { InputdirectComponent } from './inputdirect/inputdirect.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { HomeComponent } from './home/home.component';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
         RouterModule.forRoot([
           { path: '',   redirectTo: '/inputdirect', pathMatch: 'full' },
       { path: 'mediadevice', component: MediadeviceComponent },

@@ -1,0 +1,8 @@
+{
+  "/ocr": {
+      "target": "http://54.36.104.34:8080",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true
+  }
+}
