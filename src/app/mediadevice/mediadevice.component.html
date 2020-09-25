@@ -1,9 +1,12 @@
 <div class="container-mediadevice">
-	<div class="d-flex flex-column align-items-center">
+	<div class="content-camera d-flex flex-column align-items-center">
 		<div class="camera-source ">
       <video #video class="vid" autoplay playsinline></video>
       <div #selection id="rectangle"></div>
-      <button class="camera-btn" mat-fab (click)="capture()" color="primary" >
+      <button *ngIf="!isLandscapeMode" class="camera-btn" mat-fab (click)="capture()" color="primary" >
+        <mat-icon>camera_alt</mat-icon>
+      </button>
+      <button *ngIf="isLandscapeMode" class="camera-btn-landscape" mat-fab (click)="capture()" color="primary" >
         <mat-icon>camera_alt</mat-icon>
       </button>
       <button class="reset-btn" mat-fab (click)="stopCamera(true)" color="primary" >

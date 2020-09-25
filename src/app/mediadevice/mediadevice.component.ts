@@ -60,17 +60,16 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
       this.stream = stream;
       this.renderer.setProperty(this.videoElement.nativeElement, 'srcObject', stream);
       this.renderer.listen(this.videoElement.nativeElement, 'play', (event) => {
-          this.videoHeight = this.videoElement.nativeElement.videoHeight ;
-          this.videoWidth = this.videoElement.nativeElement.videoWidth ;
+        this.isLandscapeMode = window.innerWidth > window.innerHeight;
 
-          this.isLandscapeMode = window.innerWidth > window.innerHeight;
-
+        this.videoHeight = this.videoElement.nativeElement.videoHeight ;
+        this.videoWidth = this.videoElement.nativeElement.videoWidth ;
           // tslint:disable-next-line: max-line-length
-          this.selectionHeight = this.isLandscapeMode ? this.videoElement.nativeElement.offsetHeight * 0.666  : this.videoElement.nativeElement.offsetHeight * 0.333;
-          this.selectionWidth = this.videoElement.nativeElement.offsetWidth * 0.8 ;
+        this.selectionHeight = this.isLandscapeMode ? this.videoElement.nativeElement.offsetHeight * 0.666  : this.videoElement.nativeElement.offsetHeight * 0.333;
+        this.selectionWidth = this.videoElement.nativeElement.offsetWidth * 0.8 ;
 
-          this.renderer.setStyle(this.selection.nativeElement, 'width',  this. selectionWidth + 'px');
-          this.renderer.setStyle(this.selection.nativeElement, 'height', this.selectionHeight + 'px' );
+        this.renderer.setStyle(this.selection.nativeElement, 'width',  this. selectionWidth + 'px');
+        this.renderer.setStyle(this.selection.nativeElement, 'height', this.selectionHeight + 'px' );
       });
 
   }
@@ -97,7 +96,6 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
     this.canvas.nativeElement.getContext('2d').drawImage(this.videoElement.nativeElement, sx , sy, swidth, sheight,  x, y, width, height);
     this.ocrService.manageOCR(this.canvas.nativeElement.toDataURL('image/jpeg', 1.0));
 
-    this.activateSaveButton = true;
   }
 
   save() {
@@ -108,7 +106,7 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
     link.download = fileName + '.jpeg';
     link.href = this.canvas.nativeElement.toDataURL('image/jpeg', 1.0).replace('image/jpeg', 'image/octet-stream');
    // link.click();
-    this.onUpload()
+   // this.onUpload()
   }
 
   stopCamera(reset?: boolean): void {
@@ -123,39 +121,7 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
   handleError(error): void {
       console.log('Error: ', error);
   }
-  onUpload() {
 
-
-  //   this.ocrService.postOCR(this.canvas.nativeElement.toDataURL('image/jpeg', 1.0).replace('image/jpeg', 'image/octet-stream')).subscribe(
-  //     (val) => {
-  //       console.log('POST call successful value returned in body', val);
-  //       this.globalToasterService.setToast({
-  //         type: 'success',
-  //         title: 'success',
-  //         body: LinkButtonComponent,
-  //         bodyOutputType: BodyOutputType.Component,
-  //         data: {
-  //           response: val,
-  //           image: this.canvas.nativeElement.toDataURL('image/jpeg', 1.0),
-  //           title: 'success',
-  //         }
-  //       });
-  //     },
-  //     response => {
-  //         console.log('POST call in error', response);
-  
-  //         this.globalToasterService.setToast({
-  //           type: 'error',
-  //           title: 'error',
-  //           body: 'error',
-  //         });
-  //     },
-  //     () => {
-  //       console.log('The POST observable is now completed.');
-
-  //     }
-  //   );
-   }
 
 }
 

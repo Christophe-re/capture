@@ -16,7 +16,7 @@ export class OcrService {
   constructor(private http: HttpClient, private globalToasterService: GlobalToasterService, private loadingService: LoadingService) { }
 
   baseUrl = environment.backend.baseURL;
-  endPoint = 'ocr';
+  endPoint = 'dev/in-tact/v1.0/ocr';
 
   manageOCR(image) {
     this.loadingService.setLoading()
