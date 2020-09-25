@@ -31,7 +31,6 @@
   .cropper-wraper {
     display: flex;
     flex-direction: column;
-    height: 100%;
     .cropper-wraper-top {
       padding: 5px;
       .toolbar {
@@ -45,6 +44,16 @@
       }
       .top {
         position: relative;
+        display: flex;
+        .scroll-left,
+        .scroll-right {
+          display: block;
+          width: 10px;
+          background-color: #4051b5;
+          align-self: stretch;
+          border-radius: 5px;
+        }
+
         // .rotate-left-btn,
         // .rotate-right-btn,
         // .zoom-in-btn,

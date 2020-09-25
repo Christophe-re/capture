@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
     animation: 'fade',
     positionClass: 'toast-top-right',
     newestOnTop: false,
-    timeout: 10000,
+    timeout: 5000,
     showCloseButton: true,
     tapToDismiss: false
   });

@@ -26,13 +26,13 @@ export class OcrService {
         console.log('POST call successful value returned in body', val);
         this.globalToasterService.setToast({
           type: 'success',
-          title: 'success',
+         // title: 'success',
           body: LinkButtonComponent,
           bodyOutputType: BodyOutputType.Component,
           data: {
             response: val,
             image: image,
-            title: 'success',
+            title: 'Opération réalisée avec succès',
           }
         });
       },

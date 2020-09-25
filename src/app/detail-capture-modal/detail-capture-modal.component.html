@@ -1,9 +1,10 @@
-
 <h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
   <img class="img-capture" [src]="data.image" alt="">
   <p>{{data.response | json}}</p>
 </div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+<div class="mat-dialog-actions" mat-dialog-actions>
+  <button class="close-btn" mat-fab mat-dialog-close color="primary" >
+    <mat-icon>close</mat-icon>
+  </button>
 </div>

@@ -25,3 +25,14 @@
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.toast{
+  display: flex !important;;
+  align-items: center !important;;
+  width: 12em !important;
+}
+
+body * {
+  outline: none;
+}
