@@ -1,4 +1,7 @@
-@import "~bootstrap/scss/bootstrap.scss";
+@import "~angular2-toaster/toaster.min.css";
+
+//@import "~bootstrap/scss/bootstrap.scss";
+// External
 .vid {
     width: 100%;
     height: 100%;
@@ -20,3 +23,5 @@
     height: 12px!important;
   }
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

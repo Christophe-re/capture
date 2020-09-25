@@ -1,6 +1,11 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CameraResultType, Camera, Filesystem, FilesystemDirectory, Capacitor } from '@capacitor/core';
-
+import { BodyOutputType } from 'angular2-toaster';
+import {  base64ToFile } from 'ngx-image-cropper';
+import { LinkButtonComponent } from '../link-button/link-button.component';
+import { GlobalToasterService } from '../services/global-toaster.service';
+import { OcrService } from '../services/ocr.service';
 @Component({
   selector: 'app-mediadevice',
   templateUrl: './mediadevice.component.html',
@@ -29,7 +34,7 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
 
 
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2, private ocrService: OcrService, private globalToasterService: GlobalToasterService) {
     window.addEventListener('orientationchange', (event) => {
       this.stopCamera(true);
     }, false);
@@ -90,6 +95,8 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
     }
 
     this.canvas.nativeElement.getContext('2d').drawImage(this.videoElement.nativeElement, sx , sy, swidth, sheight,  x, y, width, height);
+    this.ocrService.manageOCR(this.canvas.nativeElement.toDataURL('image/jpeg', 1.0));
+
     this.activateSaveButton = true;
   }
 
@@ -100,7 +107,8 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
     const link = document.createElement('a');
     link.download = fileName + '.jpeg';
     link.href = this.canvas.nativeElement.toDataURL('image/jpeg', 1.0).replace('image/jpeg', 'image/octet-stream');
-    link.click();
+   // link.click();
+    this.onUpload()
   }
 
   stopCamera(reset?: boolean): void {
@@ -115,4 +123,40 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
   handleError(error): void {
       console.log('Error: ', error);
   }
+  onUpload() {
+
+
+  //   this.ocrService.postOCR(this.canvas.nativeElement.toDataURL('image/jpeg', 1.0).replace('image/jpeg', 'image/octet-stream')).subscribe(
+  //     (val) => {
+  //       console.log('POST call successful value returned in body', val);
+  //       this.globalToasterService.setToast({
+  //         type: 'success',
+  //         title: 'success',
+  //         body: LinkButtonComponent,
+  //         bodyOutputType: BodyOutputType.Component,
+  //         data: {
+  //           response: val,
+  //           image: this.canvas.nativeElement.toDataURL('image/jpeg', 1.0),
+  //           title: 'success',
+  //         }
+  //       });
+  //     },
+  //     response => {
+  //         console.log('POST call in error', response);
+  
+  //         this.globalToasterService.setToast({
+  //           type: 'error',
+  //           title: 'error',
+  //           body: 'error',
+  //         });
+  //     },
+  //     () => {
+  //       console.log('The POST observable is now completed.');
+
+  //     }
+  //   );
+   }
+
 }
+
+
