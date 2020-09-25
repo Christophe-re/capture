@@ -4,6 +4,7 @@ import { GeolocationPosition, Plugins, CameraResultType, CameraDirection } from 
 import { ToasterConfig, ToasterService } from 'angular2-toaster';
 import { Subscription, timer } from 'rxjs';
 import { GlobalToasterService } from './services/global-toaster.service';
+import { LoadingService } from './services/loading.service';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -26,21 +27,25 @@ export class AppComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private router: Router,
     private toasterService: ToasterService,
-    private globalToasterService: GlobalToasterService, ) {}
+    private globalToasterService: GlobalToasterService,
+    public loadingService: LoadingService ) {}
 
   ngOnInit() {
+    this.loadingService.unsetLoading()
   this.router.navigate(['']);
   this.subTimer = this.source.subscribe(val => {
     if (val === 1) {
       this.renderer.setStyle(this.splashcreen.nativeElement, 'display',  'none');
       this.renderer.setStyle(this.splashcreen.nativeElement, 'visibility',  'hidden');
+    //  this.router.navigate(['/inputdirect']);
+      this.subTimer.unsubscribe();
+
     }
   });
   this.globalToasterService.getToast().subscribe(toast => {
     this.toasterService.pop(toast);
   });
   }
-
 
   ngOnDestroy(): void {
     this.subTimer.unsubscribe();

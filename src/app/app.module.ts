@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LinkButtonComponent } from './link-button/link-button.component';
 import { DetailCaptureModalComponent } from './detail-capture-modal/detail-capture-modal.component';
 import { MatDialogModule } from '@angular/material';
+import { LoadingService } from './services/loading.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,13 +36,13 @@ import { MatDialogModule } from '@angular/material';
     ToasterModule.forRoot(),
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '',   redirectTo: '/inputdirect', pathMatch: 'full' },
+    //  { path: '',   redirectTo: '/inputdirect', pathMatch: 'full' },
       { path: 'mediadevice', component: MediadeviceComponent },
       { path: 'inputdirect', component: InputdirectComponent },
     ]),
     ImageCropperModule
   ],
-  providers: [OcrService, GlobalToasterService],
+  providers: [OcrService, GlobalToasterService, LoadingService],
   bootstrap: [AppComponent],
   entryComponents: [LinkButtonComponent, DetailCaptureModalComponent]
 })

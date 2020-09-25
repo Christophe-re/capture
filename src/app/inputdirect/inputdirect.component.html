@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-inputdirect">
   <div *ngIf="!imageChangedEvent" class="logo">
     <img src="../assets/Saint-Gobain_logo.png" alt="">
   </div>
@@ -13,10 +13,7 @@
       </svg>
     </label>
   </div>
-  <div *ngIf="!imageChangedEvent"  class="blank-bottom"></div>
-
-
-
+  <!-- <div *ngIf="!imageChangedEvent"  class="blank-bottom"></div> -->
 
   <div class="cropper-wraper" *ngIf="imageChangedEvent">
     <div class="cropper-wraper-top">
@@ -33,7 +30,6 @@
         </svg></button>
       </div> -->
       <div class="top">
-   
         <image-cropper
         [imageChangedEvent]="imageChangedEvent"
         [maintainAspectRatio]="false"

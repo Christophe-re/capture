@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ImageTransform, ImageCroppedEvent, base64ToFile, Dimensions } from 'ngx-image-cropper';
+import { LoadingService } from '../services/loading.service';
 import { OcrService } from '../services/ocr.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { OcrService } from '../services/ocr.service';
 
 export class InputdirectComponent  {
 
-  constructor(private http: HttpClient, private ocrService: OcrService) { }
+  constructor(private http: HttpClient, private ocrService: OcrService, private loadingService: LoadingService) { }
   imgB64;
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -31,6 +32,7 @@ export class InputdirectComponent  {
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
+    this.loadingService.setLoading();
   }
 
   imageCropped(event: ImageCroppedEvent): void  {
@@ -40,6 +42,7 @@ export class InputdirectComponent  {
 
   imageLoaded(): void  {
     this.showCropper = true;
+    this.loadingService.unsetLoading();
     console.log('Image loaded');
   }
 

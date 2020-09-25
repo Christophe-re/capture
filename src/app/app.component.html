@@ -1,5 +1,5 @@
-
-<div class="menu">
+<div class="pwa-capture">
+  <div class="menu">
     <a [routerLink]="['/inputdirect']" [routerLinkActive]="'active'">
       OPTION 1
     </a>
@@ -7,20 +7,31 @@
       OPTION 2
      </a>
 </div>
-<router-outlet>
-</router-outlet>
-<toaster-container [toasterconfig]="config"></toaster-container>
-  <div #splashcreen class="splashscreen">
-    <div class="logo">
-      <img src="../assets/Saint-Gobain_logo.png" alt="">
-      <span>PWA Capture</span>
-    </div>
-    <div class="containersp">
-      <div class="progress2 progress-moved">
-        <div class="progress-bar2"></div>
-      </div>
-    </div>
+<router-outlet class="outlet"></router-outlet>
+</div>
 
+<toaster-container [toasterconfig]="config"></toaster-container>
+
+<div #splashcreen class="splashscreen">
+  <div class="logo">
+    <img src="../assets/Saint-Gobain_logo.png" alt="">
+    <span>PWA Capture</span>
   </div>
+  <div class="containersp">
+    <div class="progress2 progress-moved">
+      <div class="progress-bar2"></div>
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="loadingService.isLoading">
+  <div class="loading-content ">
+    <div class="loading-loader">
+      <div class="loader" id="loader-1"></div>
+    </div>
+  </div>
+</div>
+
+
 
 
