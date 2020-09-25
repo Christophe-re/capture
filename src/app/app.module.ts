@@ -16,7 +16,7 @@ import { ToasterModule } from 'angular2-toaster';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LinkButtonComponent } from './link-button/link-button.component';
 import { DetailCaptureModalComponent } from './detail-capture-modal/detail-capture-modal.component';
-import { MatDialogModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 import { LoadingService } from './services/loading.service';
 @NgModule({
   declarations: [
@@ -31,6 +31,8 @@ import { LoadingService } from './services/loading.service';
   imports: [
     BrowserModule,
     FormsModule,
+    MatButtonModule,
+    MatIconModule,
     BrowserAnimationsModule,
     MatDialogModule,
     ToasterModule.forRoot(),

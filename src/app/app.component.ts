@@ -32,19 +32,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadingService.unsetLoading()
-  this.router.navigate(['']);
-  this.subTimer = this.source.subscribe(val => {
-    if (val === 1) {
-      this.renderer.setStyle(this.splashcreen.nativeElement, 'display',  'none');
-      this.renderer.setStyle(this.splashcreen.nativeElement, 'visibility',  'hidden');
-    //  this.router.navigate(['/inputdirect']);
-      this.subTimer.unsubscribe();
+    this.router.navigate(['']);
+    this.subTimer = this.source.subscribe(val => {
+      if (val === 1) {
+        this.renderer.setStyle(this.splashcreen.nativeElement, 'display',  'none');
+        this.renderer.setStyle(this.splashcreen.nativeElement, 'visibility',  'hidden');
+        this.router.navigate(['/inputdirect']);
+        this.subTimer.unsubscribe();
 
-    }
-  });
-  this.globalToasterService.getToast().subscribe(toast => {
-    this.toasterService.pop(toast);
-  });
+      }
+    });
+    this.globalToasterService.getToast().subscribe(toast => {
+      this.toasterService.pop(toast);
+    });
   }
 
   ngOnDestroy(): void {

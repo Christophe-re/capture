@@ -1,5 +1,4 @@
 .pwa-capture {
-  background: red;
   display: flex;
   flex-direction: column;
   height: 100%; 
@@ -11,12 +10,7 @@
     align-items: center;
     align-content: center;
     height: 40px;
-    background-color: green;
     border: solid 1px grey;
-  }
-  .outlet {
-  //  height: calc(100% - 40px);
-    background-color: pink;
   }
 }
 
