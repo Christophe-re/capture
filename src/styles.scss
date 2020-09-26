@@ -33,3 +33,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body * {
   outline: none;
 }
+
+image-cropper > div:first-child {
+  touch-action: auto!important;
+}

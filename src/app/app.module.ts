@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { CapacitorComponent } from './capacitor/capacitor.component';
 import { RouterModule } from '@angular/router';
@@ -13,11 +12,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { OcrService } from './services/ocr.service';
 import { GlobalToasterService } from './services/global-toaster.service';
 import { ToasterModule } from 'angular2-toaster';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LinkButtonComponent } from './link-button/link-button.component';
 import { DetailCaptureModalComponent } from './detail-capture-modal/detail-capture-modal.component';
-import { MatButtonModule, MatDialogModule, MatIconModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatToolbarModule } from '@angular/material';
 import { LoadingService } from './services/loading.service';
+import { ListCaptureComponent } from './list-capture/list-capture.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +26,8 @@ import { LoadingService } from './services/loading.service';
     InputdirectComponent,
     HomeComponent,
     LinkButtonComponent,
-    DetailCaptureModalComponent
+    DetailCaptureModalComponent,
+    ListCaptureComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +35,7 @@ import { LoadingService } from './services/loading.service';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
+    MatCardModule,
     BrowserAnimationsModule,
     MatDialogModule,
     ToasterModule.forRoot(),
@@ -42,6 +44,7 @@ import { LoadingService } from './services/loading.service';
     //  { path: '',   redirectTo: '/inputdirect', pathMatch: 'full' },
       { path: 'mediadevice', component: MediadeviceComponent },
       { path: 'inputdirect', component: InputdirectComponent },
+      { path: 'listcapture', component: ListCaptureComponent },
     ]),
     ImageCropperModule
   ],

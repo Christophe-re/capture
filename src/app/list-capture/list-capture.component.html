@@ -1,0 +1,20 @@
+<p class="no-history" *ngIf="!localListCapture.length"> Pas d'historique pour le moment</p>
+<ng-container *ngIf="localListCapture.length">
+  <div class="list" >
+    <mat-card class="list-card" *ngFor="let item of localListCapture">
+      <mat-card-header >
+        <mat-card-title class="mat-card-title">{{item.status}} <div class="status {{item.status}}"  ></div>
+        </mat-card-title>
+      </mat-card-header>
+      <img class="mat-card-image" mat-card-image [src]="item.image">
+      <mat-card-content>
+        <p>
+          <!-- {{item.response | json}} -->
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="bottom-card">
+        <button color="primary" (click)="openDialog(item)" mat-button>Voir le détail</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-container>

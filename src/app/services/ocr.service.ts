@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable, throwError} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {map, catchError} from 'rxjs/operators';
 import { base64ToFile } from 'ngx-image-cropper';
@@ -15,11 +15,12 @@ export class OcrService {
 
   constructor(private http: HttpClient, private globalToasterService: GlobalToasterService, private loadingService: LoadingService) { }
 
-  baseUrl = environment.backend.baseURL;
-  endPoint = 'dev/in-tact/v1.0/ocr';
+  private baseUrl = environment.backend.baseURL;
+  private endPoint = 'dev/in-tact/v1.0/ocr';
+  public listCapture = [];
 
   manageOCR(image) {
-    this.loadingService.setLoading()
+    this.loadingService.setLoading();
     this.postOCR(image).subscribe(
       (val) => {
         this.loadingService.unsetLoading();
@@ -33,8 +34,15 @@ export class OcrService {
             response: val,
             image: image,
             title: 'Opération réalisée avec succès',
+            status: 'success',
           }
         });
+        this.listCapture.push({
+          response: val,
+          image: image,
+          title: 'Opération réalisée avec succès',
+          status: 'success',
+        })
       },
       response => {
         this.loadingService.unsetLoading();
@@ -45,6 +53,12 @@ export class OcrService {
           title: 'Error',
           body: response,
         });
+        this.listCapture.push({
+          response: {},
+          image: image,
+          title: 'Erreur Serveur',
+          status: 'error',
+        })
       },
       () => {
         this.loadingService.unsetLoading();
@@ -55,9 +69,9 @@ export class OcrService {
 
   postOCR(image: string): Observable<any>{
     const file = base64ToFile(image);
-
     const formData = new FormData();
     formData.append('upload', file);
+    //return of({ok:'ok'})
     return this.http.post<FormData>(`${this.baseUrl}/${this.endPoint}`, formData)
     .pipe(
       catchError(this.handleError)
