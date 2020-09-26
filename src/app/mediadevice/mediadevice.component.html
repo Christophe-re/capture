@@ -9,7 +9,10 @@
       <button *ngIf="isLandscapeMode" class="camera-btn-landscape" mat-fab (click)="capture()" color="primary" >
         <mat-icon>camera_alt</mat-icon>
       </button>
-      <button class="reset-btn" mat-fab (click)="stopCamera(true)" color="primary" >
+      <button *ngIf="!isLandscapeMode" class="reset-btn" mat-fab (click)="stopCamera(true)" color="primary" >
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button *ngIf="isLandscapeMode"  class="reset-btn-landscape" mat-fab (click)="stopCamera(true)" color="primary" >
         <mat-icon>refresh</mat-icon>
       </button>
 

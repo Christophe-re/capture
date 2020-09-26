@@ -2,23 +2,29 @@
   display: flex;
   flex-direction: column;
   background-color: black;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    width: inherit;
+    justify-content: center;
+    min-height: 1px;
+    height: calc(100% - 40px);
 }
 .container-mediadevice {
-  display: flex;
-  flex-direction: column;
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   flex-grow: 1;
   flex-shrink: 0;
   width: inherit;
   min-height: 1px;
   background: black;
-  
-
+  overflow: hidden;
 }
 .content-camera {
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .vid {
@@ -46,13 +52,20 @@ padding: 0;
   position: absolute;
   right: 0;
   top: 50%;
-  
+  //transform: translateY(50%);
 }
 
 .reset-btn {
   position: absolute;
   top: 20px;
   left: 20px;
+}
+
+.reset-btn-landscape {
+  position: absolute;
+  left: 0;
+  top: 50%;
+ // transform: translateY(50%);
 }
 
 #rectangle {
