@@ -28,11 +28,16 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
           // height: { ideal: 540 }
       }
   };
+  imageCaptureConfig = {
+      fillLightMode: "flash", /* or "flash" */
+      focusMode: "continuous"
+  };
+
   stream;
   activateSaveButton = false;
   isLandscapeMode: boolean;
-
-
+  isFlashEnabled =false;
+  imgCap;
 
   constructor(private renderer: Renderer2, private ocrService: OcrService, private globalToasterService: GlobalToasterService) {
     window.addEventListener('orientationchange', (event) => {
@@ -50,14 +55,20 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
 
   startCamera(): void {
     if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
-        navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
+      navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
     } else {
         alert('Sorry, camera not available.');
     }
   }
 
+
   attachVideo(stream): void {
       this.stream = stream;
+      this.imgCap = new ImageCapture(stream.getVideoTracks()[0]);
+      const photoCapabilities = this.imgCap.getPhotoCapabilities().then((res) => { 
+        console.log(res)
+      });
+
       this.renderer.setProperty(this.videoElement.nativeElement, 'srcObject', stream);
       this.renderer.listen(this.videoElement.nativeElement, 'play', (event) => {
         this.isLandscapeMode = window.innerWidth > window.innerHeight;
@@ -92,10 +103,41 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
     } else {
       this.renderer.setProperty(this.canvas.nativeElement, 'height', this.videoHeight * 0.333);
     }
+    this.imgCap.takePhoto()
+    .then(blob =>  {
+      console.log(URL.createObjectURL(blob));
+      const image = document.querySelector('img');
+      image.src = URL.createObjectURL(blob);
+      createImageBitmap(blob).then(imageBitmap => {
+        this.canvas.nativeElement.getContext('2d').drawImage(imageBitmap, sx , sy, swidth, sheight,  x, y, width, height);
+       // window.location.href = 'data:application/octet-stream;base64,' + '.img';
+       // drawCanvas(canvas, imageBitmap);
+      })
+      .catch(error => console.log(error));
+    });
 
-    this.canvas.nativeElement.getContext('2d').drawImage(this.videoElement.nativeElement, sx , sy, swidth, sheight,  x, y, width, height);
-    this.ocrService.manageOCR(this.canvas.nativeElement.toDataURL('image/jpeg', 1.0));
+   // this.canvas.nativeElement.getContext('2d').drawImage(this.videoElement.nativeElement, sx , sy, swidth, sheight,  x, y, width, height);
+   // this.ocrService.manageOCR(this.canvas.nativeElement.toDataURL('image/jpeg', 1.0));
 
+  }
+
+  setlight(stream) {
+
+    //Create image capture object and get camera capabilities
+    const photoCapabilities = this.imgCap.getPhotoCapabilities().then((res) => {
+      console.log(res)
+      //todo: check if camera has a torch
+
+      //let there be light!
+      // const btn = document.querySelector('.switch');
+      // btn.addEventListener('click', function(){
+      //   track.applyConstraints({
+      //     advanced: [{torch: true}]
+      //   });
+      // });
+    });
+
+    //Create image capture object and get camera capabilities
   }
 
   save() {
@@ -105,7 +147,7 @@ export class MediadeviceComponent implements OnInit, OnDestroy{
     const link = document.createElement('a');
     link.download = fileName + '.jpeg';
     link.href = this.canvas.nativeElement.toDataURL('image/jpeg', 1.0).replace('image/jpeg', 'image/octet-stream');
-   // link.click();
+    link.click();
    // this.onUpload()
   }
 

@@ -2,7 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [
+      "../node_modules/@types/w3c-image-capture"
+    ]
   },
   "files": [
     "src/main.ts",
@@ -12,7 +14,8 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "src/test.ts",
-    "src/**/*.spec.ts"
+    "test.ts",
+    "**/*.spec.ts",
+    "**/tests/**/*.ts"
   ]
 }
