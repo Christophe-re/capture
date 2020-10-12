@@ -37,3 +37,7 @@ body * {
 image-cropper > div:first-child {
   touch-action: auto!important;
 }
+
+.mat-dialog-content {
+  max-height: 50vh !important;
+}

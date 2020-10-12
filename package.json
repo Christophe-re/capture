@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-firebase" : "ng build && firebase deploy",
+    "build-prod": "ng build --base-href /dev/in-tact/v1.0/pwa/ --env=prod --prod --output-path dist-prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

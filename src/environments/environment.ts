@@ -5,7 +5,11 @@
 export const environment = {
   production: false,
   backend: {
-    baseURL:"https://goldgewicht.com"
+    baseURL:"https://goldgewicht.com",
+
+  },
+  front: {
+    baseURL:"/"
   }
 };
 

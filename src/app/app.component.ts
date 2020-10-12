@@ -5,6 +5,7 @@ import { ToasterConfig, ToasterService } from 'angular2-toaster';
 import { Subscription, timer } from 'rxjs';
 import { GlobalToasterService } from './services/global-toaster.service';
 import { LoadingService } from './services/loading.service';
+import { environment } from 'src/environments/environment';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
     showCloseButton: true,
     tapToDismiss: false
   });
+  private frontBaseUrl = environment.front.baseURL;
   constructor(
     private renderer: Renderer2,
     private router: Router,
@@ -32,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadingService.unsetLoading()
-    this.router.navigate(['']);
+    this.router.navigate([this.frontBaseUrl]);
     this.subTimer = this.source.subscribe(val => {
       if (val === 1) {
         this.renderer.setStyle(this.splashcreen.nativeElement, 'display',  'none');

@@ -16,7 +16,7 @@ export class OcrService {
   constructor(private http: HttpClient, private globalToasterService: GlobalToasterService, private loadingService: LoadingService) { }
 
   private baseUrl = environment.backend.baseURL;
-  private endPoint = 'dev/in-tact/v1.0/ocr';
+  private endPoint = 'dev/in-tact/v1.0/ocr?key=FT3W8J1LXZ88';
   public listCapture = [];
 
   manageOCR(image) {
@@ -25,23 +25,46 @@ export class OcrService {
       (val) => {
         this.loadingService.unsetLoading();
         console.log('POST call successful value returned in body', val);
+        let title: string;
+        let status: string;
+        if (val && val.statut) {
+          if (val.statut > 0) {
+            status = 'success';
+            if (val.statut === 1) {
+              title = 'Opération réalisée avec succès';
+            }
+
+          } else if (val.statut < 0 ) {
+            status = 'error';
+            if (val.statut === -1) {
+              title = 'Erreur : les données n\'ont pas été chargées';
+            }
+            if (val.statut === -2) {
+              title = 'Erreur : le produit n\'est pas référencé';
+            }
+            if (val.statut === -3) {
+              title = 'Erreur : le prix TTC est incorrect';
+            }
+          }
+        }
         this.globalToasterService.setToast({
-          type: 'success',
-         // title: 'success',
+          type: status,
+          title: title,
           body: LinkButtonComponent,
           bodyOutputType: BodyOutputType.Component,
           data: {
             response: val,
             image: image,
-            title: 'Opération réalisée avec succès',
-            status: 'success',
+            title: title,
+            status: status,
           }
         });
+
         this.listCapture.push({
           response: val,
           image: image,
-          title: 'Opération réalisée avec succès',
-          status: 'success',
+          title: title,
+          status: status,
         })
       },
       response => {
