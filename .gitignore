@@ -48,6 +48,7 @@ build/Release
 node_modules/
 
 dist/
+dist-prod/
 
 # Optional npm cache directory
 .npm
