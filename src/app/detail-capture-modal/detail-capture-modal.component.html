@@ -1,7 +1,14 @@
-<h1 mat-dialog-title>{{data.title}}</h1>
+<h1 mat-dialog-title>{{data.title}}<div class="status {{data.status}}"></div></h1>
 <div mat-dialog-content>
   <img class="img-capture" [src]="data.image" alt="">
-  <p>{{data.response | json}}</p>
+
+  <div *ngFor="let item of data.response | keyvalue">
+    <span class="key">{{item.key}}</span>: <b>{{item.value}}</b>
+</div>
+<div>
+  <span class="key">Reponse Time</span>: <b>{{data.responseTimes}}</b> ms
+</div>
+  <!-- <p>{{data.response | json}}</p> -->
 </div>
 <div class="mat-dialog-actions" mat-dialog-actions>
   <button class="close-btn" mat-fab mat-dialog-close color="primary" >

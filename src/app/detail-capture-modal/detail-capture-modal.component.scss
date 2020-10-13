@@ -7,3 +7,25 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.status {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  border-radius: 50% ;
+  margin-left: 10px;
+
+  &.success {
+    background-color: green;
+  }
+  &.error {
+    background-color: red;
+  }
+  &.warning {
+    background-color: orange;
+  }
+}
+
+span.key {
+  color: #3f51b5
+}

@@ -21,29 +21,41 @@ export class OcrService {
 
   manageOCR(image) {
     this.loadingService.setLoading();
+    const startTimestamp = new Date().getTime();
     this.postOCR(image).subscribe(
       (val) => {
+        const endTimestamp: number = new Date().getTime();
+        const responseTimes = endTimestamp - startTimestamp;
         this.loadingService.unsetLoading();
         console.log('POST call successful value returned in body', val);
         let title: string;
         let status: string;
         if (val && val.statut) {
-          if (val.statut > 0) {
+          if (val.statut === 1) {
             status = 'success';
-            if (val.statut === 1) {
-              title = 'Opération réalisée avec succès';
-            }
+              title = 'Le prix TTC est valide';
 
-          } else if (val.statut < 0 ) {
+          } else if (val.statut === 0 || val.statut === -5) {
             status = 'error';
+            if (val.statut === 0) {
+              title = 'Erreur serveur';
+            }
+            if (val.statut === -5) {
+              title = 'Erreur : le prix TTC n\'est pas valide';
+            }
+          } else if (val.statut <= -1 && val.statut >= -4) {
+            status = 'warning';
             if (val.statut === -1) {
-              title = 'Erreur : les données n\'ont pas été chargées';
+              title = 'Alerte : le code produit n\'as pas été reconnu';
             }
             if (val.statut === -2) {
-              title = 'Erreur : le produit n\'est pas référencé';
+              title = 'Alerte : le prix TTC n\'a pas été reconnu';
             }
             if (val.statut === -3) {
-              title = 'Erreur : le prix TTC est incorrect';
+              title = 'Alerte : le produit n\'a pas été trouvé en base';
+            }
+            if (val.statut === -4) {
+              title = 'Alerte : comparaison des prix TTC impossible';
             }
           }
         }
@@ -53,6 +65,7 @@ export class OcrService {
           body: LinkButtonComponent,
           bodyOutputType: BodyOutputType.Component,
           data: {
+            responseTimes: responseTimes,
             response: val,
             image: image,
             title: title,
@@ -61,6 +74,7 @@ export class OcrService {
         });
 
         this.listCapture.push({
+          responseTimes: responseTimes,
           response: val,
           image: image,
           title: title,

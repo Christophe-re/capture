@@ -18,6 +18,7 @@ import { DetailCaptureModalComponent } from './detail-capture-modal/detail-captu
 import { MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatToolbarModule } from '@angular/material';
 import { LoadingService } from './services/loading.service';
 import { ListCaptureComponent } from './list-capture/list-capture.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,15 +39,14 @@ import { ListCaptureComponent } from './list-capture/list-capture.component';
     MatCardModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    ToasterModule.forRoot(),
     HttpClientModule,
+    ImageCropperModule,
+    ToasterModule.forRoot(),
     RouterModule.forRoot([
-    //  { path: '',   redirectTo: '/inputdirect', pathMatch: 'full' },
       { path: 'mediadevice', component: MediadeviceComponent },
       { path: 'inputdirect', component: InputdirectComponent },
       { path: 'listcapture', component: ListCaptureComponent },
-    ]),
-    ImageCropperModule
+    ], { useHash: true }),
   ],
   providers: [OcrService, GlobalToasterService, LoadingService],
   bootstrap: [AppComponent],

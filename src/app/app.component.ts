@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
     animation: 'fade',
     positionClass: 'toast-top-right',
     newestOnTop: false,
-    timeout: 5000,
+    timeout: 10000,
     showCloseButton: true,
     tapToDismiss: false
   });
@@ -34,7 +34,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadingService.unsetLoading()
-    this.router.navigate([this.frontBaseUrl]);
     this.subTimer = this.source.subscribe(val => {
       if (val === 1) {
         this.renderer.setStyle(this.splashcreen.nativeElement, 'display',  'none');
