@@ -3,7 +3,7 @@
   <div class="list" >
     <mat-card class="list-card" *ngFor="let item of localListCapture">
       <mat-card-header >
-        <mat-card-title class="mat-card-title">{{item.status}} <div class="status {{item.status}}"  ></div>
+        <mat-card-title class="mat-card-title"><span>{{item.title}}</span> <div class="status {{item.status}}"  ></div>
         </mat-card-title>
       </mat-card-header>
       <img class="mat-card-image" mat-card-image [src]="item.image">
@@ -13,7 +13,7 @@
         </p>
       </mat-card-content>
       <mat-card-actions class="bottom-card">
-        <button color="primary" (click)="openDialog(item)" mat-button>Voir le détail</button>
+        <button color="primary" (click)="openDialog(item)" mat-raised-button>Voir le détail</button>
       </mat-card-actions>
     </mat-card>
   </div>

@@ -1,7 +1,9 @@
+@import '../../assets/scss/variables.scss';
+
 :host {
   display: flex;
   flex-direction: column;
-  background-color: black;
+  background-color: $background-secondary-color;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -20,7 +22,7 @@
   flex-shrink: 0;
   width: inherit;
   min-height: 1px;
-  background: black;
+  background: $background-secondary-color;
   overflow: hidden;
 }
 .content-camera {

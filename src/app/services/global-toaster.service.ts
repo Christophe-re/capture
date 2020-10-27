@@ -8,7 +8,7 @@ import {Observable, Subject} from 'rxjs';
 export class GlobalToasterService {
 
   private _toastEmit = new Subject<Toast>();
-
+  private _toastToDeleteEmit = new Subject<Toast>();
 
   constructor() {}
 
@@ -16,7 +16,15 @@ export class GlobalToasterService {
     this._toastEmit.next(toast);
   }
 
+  deleteToast(toast: Toast): void {
+    this._toastToDeleteEmit.next(toast);
+  }
+
   getToast(): Observable<Toast> {
     return this._toastEmit.asObservable();
+  }
+
+  removeToast(): Observable<Toast> {
+    return this._toastToDeleteEmit.asObservable();
   }
 }

@@ -1,14 +1,15 @@
+@import '../../assets/scss/variables.scss';
+
 .no-history {
   display: flex;
   justify-content: center;
   margin-top: 30%;
-  color: #4051b5;
+  color: $font-primary-color;
 }
 
 .list {
   display: flex;
   flex-wrap: wrap;
-  
 }
 
 .status {
@@ -19,13 +20,16 @@
   margin-left: 10px;
 
   &.success {
-    background-color: green;
+    background-color: $success-color;
   }
   &.error {
-    background-color: red;
+    background-color: $error-color;
   }
   &.warning {
-    background-color: orange;
+    background-color: $warning-color;
+  }
+  &.info {
+    background-color: $info-color;
   }
 }
 
@@ -34,10 +38,12 @@
   width: 48%;
 }
 .mat-card-title {
-  text-transform: capitalize !important;
-  font-size: 18px!important;
+  font-size: 14px!important;
   display: flex;
   align-items: center;
+  span {
+    width: calc(100% - 25px);
+  }
 }
 .mat-card-image {
   img {

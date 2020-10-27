@@ -1,3 +1,5 @@
+@import '../assets/scss/variables.scss' ;
+
 .pwa-capture {
   display: flex;
   flex-direction: column;
@@ -11,14 +13,15 @@
     align-items: center;
     align-content: center;
     height: 40px;
-    border-bottom: solid 1px grey;
+    background-color: $secondary-color;
+    a {
+      color: $font-secondary-color !important
+    }
   }
 }
 .active {
   font-weight: bold;
 }
-
-
 
 .splashscreen {
   height: 100%;
@@ -38,10 +41,7 @@
     justify-content: center;
     span {
       margin-top: 10px;
-      color: #224896;
-    }
-    img {
-      //margin: auto;
+      color: $font-primary-color;
     }
   }
   .containersp {
@@ -62,7 +62,7 @@
       transition-property: width, background-color;
     }
     .progress-moved .progress-bar2 {
-      background-color: #224896;
+      background-color: $primary-color;
       animation: progress 3s ;
     }
   }
@@ -71,13 +71,13 @@
 @keyframes progress {
   0% {
     width: 0%;
-    background: #224896;
+    background: $primary-color;
   }
 
   100% {
     width: 100%;
-    background: #224896;
-    box-shadow: 0 0 40px #224896;
+    background: $primary-color;
+    box-shadow: 0 0 40px  $primary-color;
   }
 }
 
@@ -109,7 +109,7 @@
         height: 100%;
         border-radius: 100%;
         border: 10px solid transparent;
-        border-top-color: #224896;
+        border-top-color:  $primary-color;
       }
       
       #loader-1:before{
@@ -121,12 +121,8 @@
         border: 10px solid #ccc;
       }
     }
-
   }
-  
 }
-
-
 
 @keyframes spin{
   0%{

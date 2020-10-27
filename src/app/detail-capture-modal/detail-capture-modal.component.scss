@@ -1,3 +1,5 @@
+@import '../../assets/scss/variables.scss';
+
 .img-capture {
   width: 100%;
   margin-bottom: 20px;
@@ -8,6 +10,15 @@
   justify-content: flex-end;
 }
 
+.mat-dialog-title{
+  display: flex!important;
+  align-items: center;
+  span {
+    width: calc(100% - 25px);
+    font-size: 18px;
+  }
+}
+
 .status {
   width: 18px;
   height: 18px;
@@ -16,16 +27,19 @@
   margin-left: 10px;
 
   &.success {
-    background-color: green;
+    background-color: $success-color;
   }
   &.error {
-    background-color: red;
+    background-color: $error-color;
   }
   &.warning {
-    background-color: orange;
+    background-color: $warning-color;
+  }
+  &.info {
+    background-color: $info-color;
   }
 }
 
 span.key {
-  color: #3f51b5
+  color: $primary-color;
 }

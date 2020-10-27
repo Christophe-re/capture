@@ -1,0 +1,110 @@
+@include mat-core();
+//@import "~bootstrap/scss/bootstrap.scss";
+// External
+
+$radius:.2rem !default;
+::ng-deep .mat-button,
+::ng-deep .mat-icon,
+::ng-deep .mat-flat-button,
+::ng-deep .mat-icon-button,
+::ng-deep .mat-stroked-button,
+::ng-deep .mat-raised-button {
+  color: #fff !important;
+}
+
+$md-primary: (
+    50 : #e6f4fb,
+    100 : #c0e4f5,
+    200 : #96d3ef,
+    300 : #6bc1e9,
+    400 : #4cb3e4,
+    500 : #2ca6df,
+    600 : #279edb,
+    700 : #2195d7,
+    800 : #1b8bd2,
+    900 : #107bca,
+    A100 : #f8fcff,
+    A200 : #c5e4ff,
+    A400 : #92cdff,
+    A700 : #79c1ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+/* For use in src/lib/core/theming/_palette.scss */
+$md-secondary: (
+    50 : #f6f1e4,
+    100 : #e7dcba,
+    200 : #d8c58d,
+    300 : #c8ad5f,
+    400 : #bc9c3c,
+    500 : #b08a1a,
+    600 : #a98217,
+    700 : #a07713,
+    800 : #976d0f,
+    900 : #875a08,
+    A100 : #ffe2b5,
+    A200 : #ffce82,
+    A400 : #ffba4f,
+    A700 : #ffaf36,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$bv-palette-primary: mat-palette($md-primary);
+$bv-palette-accent: mat-palette($md-secondary);
+$bv-theme: mat-light-theme($bv-palette-primary, $bv-palette-accent);
+@include angular-material-theme($bv-theme);
+
+.mat-dialog-content {
+  max-height: 50vh !important;
+  border-bottom: solid 1px $background-primary-color;
+}
+
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+  color: #fff !important;
+}
+
+::ng-deep .mat-expansion-panel-header,
+.mat-expansion-panel {
+  border-radius: 0;
+}
+
+button.mat-stroked-button.mat-button-base.mat-primary {
+  background: white;
+}
+
+.mat-fab {
+ border-radius: 10px!important;
+}
+
+button:focus {
+  outline: none !important;
+}

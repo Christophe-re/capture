@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
     animation: 'fade',
     positionClass: 'toast-top-right',
     newestOnTop: false,
-    timeout: 10000,
+    timeout: 1000000,
     showCloseButton: true,
     tapToDismiss: false
   });
@@ -45,6 +45,9 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     this.globalToasterService.getToast().subscribe(toast => {
       this.toasterService.pop(toast);
+    });
+    this.globalToasterService.removeToast().subscribe(toast => {
+      this.toasterService.clear(toast.toastId);
     });
   }
 

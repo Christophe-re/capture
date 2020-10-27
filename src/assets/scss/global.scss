@@ -1,0 +1,63 @@
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body * {
+  outline: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  align-content: center;
+  justify-content: flex-start;
+}
+
+/* overide cropper start*/
+.resize {
+  .square {
+    width: 12px!important;
+    height: 12px!important;
+  }
+}
+image-cropper > div:first-child {
+  touch-action: auto!important;
+}
+/* overide cropper end */
+/* toast cropper start */
+.toast-info {
+  background-color: $info-color;
+}
+
+.toast-warning {
+  background-color: $warning-color;
+}
+.toaster-icon {
+  background-position: 100% 24% !important;
+}
+.toast-content {
+  margin-left: 60px;
+  width: calc(100% - 35px) !important;
+}
+.toast-content app-link-button {
+  margin-top: 10px;
+  display: flex;
+}
+.toast{
+  display: flex !important;
+  align-items: center !important;
+  width: 14em !important;
+  box-shadow: none !important;
+  padding: 15px 23px 15px 0px !important;;
+  border-radius: 3px 3px 3px 3px !important;;
+  flex-direction: column;
+}
+
+.toast-close-button {
+  position: absolute !important;
+  right: 5px !important;
+  top: 0 !important;
+}
+/* toast cropper end */

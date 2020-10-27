@@ -32,31 +32,42 @@ export class OcrService {
         let status: string;
         if (val && val.statut) {
           if (val.statut === 1) {
-            status = 'success';
-              title = 'Le prix TTC est valide';
-
-          } else if (val.statut === 0 || val.statut === -5) {
+            title = 'Information(s) manquante(s)';
+            status = 'info';
+            this.listCapture.push({
+              responseTimes: responseTimes,
+              response: val,
+              image: image,
+              title: title,
+              status: status,
+            });
+          } else if (val.statut === 2) {
+            title = 'Le prix est différent';
             status = 'error';
-            if (val.statut === 0) {
-              title = 'Erreur serveur';
-            }
-            if (val.statut === -5) {
-              title = 'Erreur : le prix TTC n\'est pas valide';
-            }
-          } else if (val.statut <= -1 && val.statut >= -4) {
+            this.listCapture.push({
+              responseTimes: responseTimes,
+              response: val,
+              image: image,
+              title: title,
+              status: status,
+            });
+          } else if (val.statut === 3) {
             status = 'warning';
-            if (val.statut === -1) {
-              title = 'Alerte : le code produit n\'as pas été reconnu';
-            }
-            if (val.statut === -2) {
-              title = 'Alerte : le prix TTC n\'a pas été reconnu';
-            }
-            if (val.statut === -3) {
-              title = 'Alerte : le produit n\'a pas été trouvé en base';
-            }
-            if (val.statut === -4) {
-              title = 'Alerte : comparaison des prix TTC impossible';
-            }
+            title = 'Information(s) pas correcte(s)';
+            this.listCapture.push({
+              responseTimes: responseTimes,
+              response: val,
+              image: image,
+              title: title,
+              status: status,
+            });
+          } else if (val.statut === 4) {
+            title = 'Le prix est correct';
+            status = 'success';
+
+          } else {
+            title = 'Erreur Inconnue';
+            status = 'unknown';
           }
         }
         this.globalToasterService.setToast({
@@ -72,22 +83,13 @@ export class OcrService {
             status: status,
           }
         });
-
-        this.listCapture.push({
-          responseTimes: responseTimes,
-          response: val,
-          image: image,
-          title: title,
-          status: status,
-        })
       },
       response => {
         this.loadingService.unsetLoading();
         console.log('POST call in error', response);
-
         this.globalToasterService.setToast({
           type: 'error',
-          title: 'Error',
+          title: 'Erreur serveur',
           body: response,
         });
         this.listCapture.push({
@@ -95,7 +97,7 @@ export class OcrService {
           image: image,
           title: 'Erreur Serveur',
           status: 'error',
-        })
+        });
       },
       () => {
         this.loadingService.unsetLoading();
@@ -108,11 +110,11 @@ export class OcrService {
     const file = base64ToFile(image);
     const formData = new FormData();
     formData.append('upload', file);
-    //return of({ok:'ok'})
-    return this.http.post<FormData>(`${this.baseUrl}/${this.endPoint}`, formData)
-    .pipe(
-      catchError(this.handleError)
-    );
+    return of({statut: 1, test:['aa', 'bb'] });
+    // return this.http.post<FormData>(`${this.baseUrl}/${this.endPoint}`, formData)
+    // .pipe(
+    //   catchError(this.handleError)
+    // );
   }
 
   private handleError(error: HttpErrorResponse) {
