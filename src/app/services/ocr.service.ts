@@ -110,11 +110,11 @@ export class OcrService {
     const file = base64ToFile(image);
     const formData = new FormData();
     formData.append('upload', file);
-    return of({statut: 1, test:['aa', 'bb'] });
-    // return this.http.post<FormData>(`${this.baseUrl}/${this.endPoint}`, formData)
-    // .pipe(
-    //   catchError(this.handleError)
-    // );
+   // return of({statut: 1, test:['aa', 'bb'] });
+    return this.http.post<FormData>(`${this.baseUrl}/${this.endPoint}`, formData)
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

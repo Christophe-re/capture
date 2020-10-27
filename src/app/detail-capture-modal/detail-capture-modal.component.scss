@@ -13,7 +13,7 @@
 .mat-dialog-title{
   display: flex!important;
   align-items: center;
-  span {
+  span {    
     width: calc(100% - 25px);
     font-size: 18px;
   }
@@ -40,6 +40,24 @@
   }
 }
 
+.title {
+
+  &.success {
+    color: $success-color;
+  }
+  &.error {
+    color: $error-color;
+  }
+  &.warning {
+    color: $warning-color;
+  }
+  &.info {
+    color: $info-color;
+  }
+}
+
+
 span.key {
-  color: $primary-color;
+  color: $font-primary-color;
+  text-transform: capitalize;
 }

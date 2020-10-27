@@ -1,9 +1,10 @@
 <p class="no-history" *ngIf="!localListCapture.length"> Pas d'historique pour le moment</p>
 <ng-container *ngIf="localListCapture.length">
-  <div class="list" >
-    <mat-card class="list-card" *ngFor="let item of localListCapture">
+  <div class="list " >
+    <mat-card class="list-card" [ngClass]="item.status" *ngFor="let item of localListCapture">
       <mat-card-header >
-        <mat-card-title class="mat-card-title"><span>{{item.title}}</span> <div class="status {{item.status}}"  ></div>
+        <mat-card-title class="mat-card-title"><span class="title" [ngClass]="item.status">{{item.title}}</span>
+           <!-- <div class="status {{item.status}}"  > </div> -->
         </mat-card-title>
       </mat-card-header>
       <img class="mat-card-image" mat-card-image [src]="item.image">

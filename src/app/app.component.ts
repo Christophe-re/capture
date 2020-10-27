@@ -20,11 +20,10 @@ export class AppComponent implements OnInit, OnDestroy {
     animation: 'fade',
     positionClass: 'toast-top-right',
     newestOnTop: false,
-    timeout: 1000000,
+    timeout: 10000,
     showCloseButton: true,
     tapToDismiss: false
   });
-  private frontBaseUrl = environment.front.baseURL;
   constructor(
     private renderer: Renderer2,
     private router: Router,
