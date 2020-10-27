@@ -1,0 +1,64 @@
+@import '../../assets/scss/variables.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: $background-primary-color;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: inherit;
+  justify-content: center;
+  min-height: 1px;
+  height: calc(100% - 40px);
+}
+.login {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: inherit;
+  min-height: 1px;
+  background: $background-primary-color;
+  overflow: hidden;
+}
+
+.login-wrapper {
+  padding: 20px;  
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .action {
+      margin-top: auto;
+      display: flex;
+      button {
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+.password-error {
+  color: $error-color;
+}
+
+h2 {
+  color: $primary-color;
+  font-size: 24px;
+}
+
+.form-content {
+  margin-top: 20px;
+  label {
+    color: $font-primary-color;
+  }
+}

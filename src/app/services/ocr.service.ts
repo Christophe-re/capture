@@ -42,7 +42,7 @@ export class OcrService {
               status: status,
             });
           } else if (val.statut === 2) {
-            title = 'Le prix est différent';
+            title = 'Prix différent';
             status = 'error';
             this.listCapture.push({
               responseTimes: responseTimes,
@@ -53,7 +53,7 @@ export class OcrService {
             });
           } else if (val.statut === 3) {
             status = 'warning';
-            title = 'Information(s) pas correcte(s)';
+            title = 'Information(s) incorrecte(s)';
             this.listCapture.push({
               responseTimes: responseTimes,
               response: val,
@@ -62,7 +62,7 @@ export class OcrService {
               status: status,
             });
           } else if (val.statut === 4) {
-            title = 'Le prix est correct';
+            title = 'Prix correct';
             status = 'success';
 
           } else {

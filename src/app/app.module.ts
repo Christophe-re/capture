@@ -19,6 +19,9 @@ import { MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatTool
 import { LoadingService } from './services/loading.service';
 import { ListCaptureComponent } from './list-capture/list-capture.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LoginComponent } from './login/login.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AuthService } from './services/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +31,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     HomeComponent,
     LinkButtonComponent,
     DetailCaptureModalComponent,
-    ListCaptureComponent
+    ListCaptureComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -43,12 +47,13 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     ImageCropperModule,
     ToasterModule.forRoot(),
     RouterModule.forRoot([
-      { path: 'mediadevice', component: MediadeviceComponent },
-      { path: 'inputdirect', component: InputdirectComponent },
-      { path: 'listcapture', component: ListCaptureComponent },
+      { path: 'mediadevice', canActivate: [AuthGuardService], component: MediadeviceComponent },
+      { path: 'inputdirect', canActivate: [AuthGuardService], component: InputdirectComponent },
+      { path: 'listcapture', canActivate: [AuthGuardService], component: ListCaptureComponent },
+      { path: 'login', component: LoginComponent },
     ], { useHash: true }),
   ],
-  providers: [OcrService, GlobalToasterService, LoadingService],
+  providers: [OcrService, GlobalToasterService, LoadingService, AuthService],
   bootstrap: [AppComponent],
   entryComponents: [LinkButtonComponent, DetailCaptureModalComponent]
 })

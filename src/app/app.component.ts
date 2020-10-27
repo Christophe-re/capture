@@ -29,10 +29,11 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private toasterService: ToasterService,
     private globalToasterService: GlobalToasterService,
-    public loadingService: LoadingService ) {}
+    public loadingService: LoadingService,
+     ) {}
 
   ngOnInit() {
-    this.loadingService.unsetLoading()
+    this.loadingService.unsetLoading();
     this.subTimer = this.source.subscribe(val => {
       if (val === 1) {
         this.renderer.setStyle(this.splashcreen.nativeElement, 'display',  'none');
