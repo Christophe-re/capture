@@ -4,11 +4,12 @@
 </h1>
 <div mat-dialog-content>
   <img class="img-capture" [src]="data.image" alt="">
-  <div *ngFor="let item of data.response | keyvalue">
-    <span class="key">{{item.key}}</span> : <b>{{item.value}}</b>
+  <div *ngFor="let info of data.response.infos">
+    <span class="key">{{info.name}}</span> : <b>{{info.validField}}</b> <span *ngIf="info.invalidField"> [<span  class="invalid-field">{{info.invalidField}}</span>]</span>
 </div>
 <div>
-  <span class="key">Reponse Time</span> : <b>{{data.responseTimes}}</b> ms
+  <br />
+  <span class="key">Temps de réponse</span> : <b>{{data.responseTimes}}</b> ms
 </div>
   <!-- <p>{{data.response | json}}</p> -->
 </div>

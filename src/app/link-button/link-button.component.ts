@@ -15,7 +15,11 @@ export class LinkButtonComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(DetailCaptureModalComponent, {
-      data: this.toast.data
+      data: this.toast.data,
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%'
     });
     this.globalToasterService.deleteToast(this.toast);
   }

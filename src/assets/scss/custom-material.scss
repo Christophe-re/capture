@@ -84,7 +84,8 @@ $bv-theme: mat-light-theme($bv-palette-primary, $bv-palette-accent);
 @include angular-material-theme($bv-theme);
 
 .mat-dialog-content {
-  max-height: 50vh !important;
+  max-height: 100% !important;
+  height: calc(100% - 120px);
   border-bottom: solid 1px $background-primary-color;
 }
 
@@ -111,4 +112,8 @@ button:focus {
 
 .mat-card-header-text {
   margin: 0!important;
+}
+
+.mat-dialog-container {
+   background-color: $background-primary-color;
 }

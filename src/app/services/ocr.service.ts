@@ -8,6 +8,7 @@ import { BodyOutputType } from 'angular2-toaster';
 import { LinkButtonComponent } from '../link-button/link-button.component';
 import { GlobalToasterService } from './global-toaster.service';
 import { LoadingService } from './loading.service';
+import { calcPossibleSecurityContexts } from '@angular/compiler/src/template_parser/binding_parser';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,7 @@ export class OcrService {
   constructor(private http: HttpClient, private globalToasterService: GlobalToasterService, private loadingService: LoadingService) { }
 
   private baseUrl = environment.backend.baseURL;
-  private endPoint = 'dev/in-tact/v1.0/ocr?key=FT3W8J1LXZ88';
+  private endPoint = 'dev/sgdbf/v1.0/ocr?key=FT3W8J1LXZ88';
   public listCapture = [];
 
   manageOCR(image) {
@@ -24,6 +25,7 @@ export class OcrService {
     const startTimestamp = new Date().getTime();
     this.postOCR(image).subscribe(
       (val) => {
+        const response = this.mapper(val);
         const endTimestamp: number = new Date().getTime();
         const responseTimes = endTimestamp - startTimestamp;
         this.loadingService.unsetLoading();
@@ -31,12 +33,12 @@ export class OcrService {
         let title: string;
         let status: string;
         if (val && val.statut) {
-          if (val.statut === 1) {
-            title = 'Information(s) manquante(s)';
+          if (val.statut === 4) {
+            title = 'Données manquantes (scan)';
             status = 'info';
             this.listCapture.push({
               responseTimes: responseTimes,
-              response: val,
+              response: response,
               image: image,
               title: title,
               status: status,
@@ -46,7 +48,7 @@ export class OcrService {
             status = 'error';
             this.listCapture.push({
               responseTimes: responseTimes,
-              response: val,
+              response: response,
               image: image,
               title: title,
               status: status,
@@ -56,16 +58,26 @@ export class OcrService {
             title = 'Information(s) incorrecte(s)';
             this.listCapture.push({
               responseTimes: responseTimes,
-              response: val,
+              response: response,
               image: image,
               title: title,
               status: status,
             });
-          } else if (val.statut === 4) {
+          } else if (val.statut === 1) {
             title = 'Prix correct';
             status = 'success';
 
-          } else {
+          } else if (val.statut === 5) {
+            title = 'Article inexistant en base de données';
+            status = 'info';
+            this.listCapture.push({
+              responseTimes: responseTimes,
+              response: response,
+              image: image,
+              title: title,
+              status: status,
+            });
+          }else {
             title = 'Erreur Inconnue';
             status = 'unknown';
           }
@@ -77,7 +89,7 @@ export class OcrService {
           bodyOutputType: BodyOutputType.Component,
           data: {
             responseTimes: responseTimes,
-            response: val,
+            response: response,
             image: image,
             title: title,
             status: status,
@@ -110,7 +122,29 @@ export class OcrService {
     const file = base64ToFile(image);
     const formData = new FormData();
     formData.append('upload', file);
-   // return of({statut: 1, test:['aa', 'bb'] });
+    // return of({
+    //   id: 'f9617d0e-75d6-49a2-bc65-377b9014106f',
+    //   code_produit: '6839273',
+  
+    //   code_zone: '980005',
+    //   code_emplacement: '000020',
+    //   code_ean_13: '3 388752 070371',
+    //   prix_ht: '45,82',
+    //   prix_ttc: '54,94',
+    //   texts: 'we\ncare\nWeberepox easy gris acier 2,5kg,\nRéservé uniquement aux Pro, réf.\n980005 000020\n54,98P\nEUR TTC\n6839273 I\n08/PI\n17-07-2020 P\n45,82\nEUR HT\n3 388752070371\nwebe\n',
+    //   statut: 3,
+    //   invalid_fields: [
+    //       {
+    //           name: 'code_zone',
+    //           value: 980006
+    //       },
+    //       {
+    //           name: 'code_emplacement',
+    //           value: '000030'
+    //       }
+    //     ]
+    //   }
+    // );
     return this.http.post<FormData>(`${this.baseUrl}/${this.endPoint}`, formData)
     .pipe(
       catchError(this.handleError)
@@ -131,5 +165,70 @@ export class OcrService {
     // Return an observable with a user-facing error message.
     return throwError(
       'Something bad happened; please try again later.');
+  }
+
+  mapper(val): any {
+    return {
+      infos: [
+        {
+          name: 'Code Produit',
+          order: 1,
+          validField: val.code_produit || '-',
+          invalidField: this.findInvalidFields('code_produit', val.invalid_fields)
+        },
+        {
+          name: 'Code Dispo',
+          order: 2,
+          validField: val.code_dispo || '-',
+          invalidField: this.findInvalidFields('code_dispo', val.invalid_fields)
+        },
+        {
+          name: 'Code Zone',
+          order: 3,
+          validField: val.code_zone || '-',
+          invalidField: this.findInvalidFields('code_zone', val.invalid_fields)
+        },
+        {
+          name: 'Code Emplacement',
+          order: 4,
+          validField: val.code_emplacement || '-',
+          invalidField: this.findInvalidFields('code_emplacement', val.invalid_fields)
+        },
+        {
+          name: 'Code Ean 13',
+          order: 5,
+          validField: val.code_ean_13 || '-',
+          invalidField: this.findInvalidFields('code_ean_13', val.invalid_fields)
+        },
+        {
+          name: 'Prix HT',
+          order: 5,
+          validField: val.prix_ht || '-',
+          invalidField: this.findInvalidFields('prix_ht', val.invalid_fields)
+        },
+        {
+          name: 'Prix TTC',
+          order: 7,
+          validField: val.prix_ht || '-',
+          invalidField: this.findInvalidFields('prix_ht', val.invalid_fields)
+        },
+        {
+          name: 'Info Scans',
+          order: 8,
+          validField: val.texts || '-',
+          invalidField: this.findInvalidFields('texts', val.invalid_fields)
+        },
+      ],
+      statut: val.status || '',
+      id: val.id || ''
+    };
+  }
+
+  findInvalidFields(name: string, invalidFields: {name: string, value: any }[]) {
+    if (!invalidFields || !invalidFields.length) {
+      return undefined;
+    } else {
+      return invalidFields.find(el => el.name === name) ? invalidFields.find(el => el.name === name).value : undefined ;
+    }
   }
 }

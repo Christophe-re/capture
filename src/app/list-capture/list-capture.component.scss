@@ -1,10 +1,16 @@
 @import '../../assets/scss/variables.scss';
-
+:host {
+  display: block;
+  height: 100%;
+  overflow: auto;
+  background-color: $background-primary-color;
+}
 .no-history {
   display: flex;
   justify-content: center;
   margin-top: 30%;
   color: $font-primary-color;
+  width: 100%;
 }
 
 .list {

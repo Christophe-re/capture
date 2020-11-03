@@ -18,7 +18,11 @@ export class ListCaptureComponent implements OnInit {
   }
   openDialog(data) {
     this.dialog.open(DetailCaptureModalComponent, {
-      data: data
+      data: data,
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%'
     });
   }
 }

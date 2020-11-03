@@ -59,5 +59,8 @@
 
 span.key {
   color: $primary-color;
-  text-transform: capitalize;
+}
+
+.invalid-field {
+  color: red;
 }
