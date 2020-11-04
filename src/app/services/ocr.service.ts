@@ -122,29 +122,29 @@ export class OcrService {
     const file = base64ToFile(image);
     const formData = new FormData();
     formData.append('upload', file);
-    // return of({
-    //   id: 'f9617d0e-75d6-49a2-bc65-377b9014106f',
-    //   code_produit: '6839273',
+    return of({
+      id: 'f9617d0e-75d6-49a2-bc65-377b9014106f',
+      code_produit: '6839273',
   
-    //   code_zone: '980005',
-    //   code_emplacement: '000020',
-    //   code_ean_13: '3 388752 070371',
-    //   prix_ht: '45,82',
-    //   prix_ttc: '54,94',
-    //   texts: 'we\ncare\nWeberepox easy gris acier 2,5kg,\nRéservé uniquement aux Pro, réf.\n980005 000020\n54,98P\nEUR TTC\n6839273 I\n08/PI\n17-07-2020 P\n45,82\nEUR HT\n3 388752070371\nwebe\n',
-    //   statut: 3,
-    //   invalid_fields: [
-    //       {
-    //           name: 'code_zone',
-    //           value: 980006
-    //       },
-    //       {
-    //           name: 'code_emplacement',
-    //           value: '000030'
-    //       }
-    //     ]
-    //   }
-    // );
+      code_zone: '980005',
+      code_emplacement: '000020',
+      code_ean_13: '3 388752 070371',
+      prix_ht: '45,82',
+      prix_ttc: '54,94',
+      texts: 'we\ncare\nWeberepox easy gris acier 2,5kg,\nRéservé uniquement aux Pro, réf.\n980005 000020\n54,98P\nEUR TTC\n6839273 I\n08/PI\n17-07-2020 P\n45,82\nEUR HT\n3 388752070371\nwebe\n',
+      statut: 3,
+      invalid_fields: [
+          {
+              name: 'code_zone',
+              value: 980006
+          },
+          {
+              name: 'code_emplacement',
+              value: '000030'
+          }
+        ]
+      }
+    );
     return this.http.post<FormData>(`${this.baseUrl}/${this.endPoint}`, formData)
     .pipe(
       catchError(this.handleError)
@@ -195,12 +195,6 @@ export class OcrService {
           validField: this.findInvalidFields('code_emplacement', val.invalid_fields)
         },
         {
-          name: 'Code Ean 13',
-          order: 5,
-          scanReturn: val.code_ean_13 || '-',
-          validField: this.findInvalidFields('code_ean_13', val.invalid_fields)
-        },
-        {
           name: 'Prix HT',
           order: 6,
           scanReturn: val.prix_ht || '-',
@@ -211,6 +205,12 @@ export class OcrService {
           order: 7,
           scanReturn: val.prix_ttc || '-',
           validField: this.findInvalidFields('prix_ttc', val.invalid_fields)
+        },
+        {
+          name: 'Code Ean 13',
+          order: 5,
+          scanReturn: val.code_ean_13 || '-',
+          validField: this.findInvalidFields('code_ean_13', val.invalid_fields)
         },
         {
           name: 'Info Scans',
