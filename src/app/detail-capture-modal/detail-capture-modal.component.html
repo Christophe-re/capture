@@ -5,7 +5,7 @@
 <div mat-dialog-content>
   <img class="img-capture" [src]="data.image" alt="">
   <div *ngFor="let info of data.response.infos">
-    <span class="key">{{info.name}}</span> : <b>{{info.validField}}</b> <span *ngIf="info.invalidField"> [<span  class="invalid-field">{{info.invalidField}}</span>]</span>
+    <span class="key" >{{info.name}}</span> : <span [ngClass]="{'invalid-field' : info.validField }"> <b>{{info.scanReturn}}</b>  </span > <span class="valid-field" *ngIf="info.validField"> <b> [{{info.validField}}]</b></span>
 </div>
 <div>
   <br />
