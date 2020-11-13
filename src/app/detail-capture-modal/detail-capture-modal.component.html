@@ -1,20 +1,21 @@
-<h1 mat-dialog-title><span  class="title" [ngClass]="data.status">{{data.title}}</span>
-  
-  <!-- <div class="status {{data.status}}"></div> -->
+<h1 mat-dialog-title>
+  <span class="title" [ngClass]="data.status">{{ data.title }}</span>
 </h1>
-<div mat-dialog-content>
-  <img class="img-capture" [src]="data.image" alt="">
-  <div *ngFor="let info of data.response.infos">
-    <span class="key" >{{info.name}}</span> : <span [ngClass]="{'invalid-field' : info.validField }"> <b>{{info.scanReturn}}</b>  </span > <span class="valid-field" *ngIf="info.validField"> <b> [{{info.validField}}]</b></span>
-</div>
-<div>
-  <br />
-  <span class="key">Temps de réponse</span> : <b>{{data.responseTimes}}</b> ms
-</div>
-  <!-- <p>{{data.response | json}}</p> -->
+<div class="mat-dialog-content" mat-dialog-content>
+  <img class="img-capture" [src]="data.image" alt="" />
+  <div *ngFor="let info of data.response.infos" class="{{ info.class }}">
+    <span class="key {{ info.class }}">{{ info.name }}</span> :
+    <span [ngClass]="{ 'invalid-field': info.validField }">
+      <b>{{ info.scanReturn }}</b>
+    </span>
+    <span class="valid-field" *ngIf="info.validField">
+      <b> [{{ info.validField }}]</b></span
+    >
+  </div>
+  <div class="response">
+    <span class="key">Temps de réponse</span> : <b>{{ data.responseTimes }}</b> ms
+  </div>
 </div>
 <div class="mat-dialog-actions" mat-dialog-actions>
-  <button class="close-btn"  tabindex="-1" mat-button mat-dialog-close mat-raised-button >
-    Fermer
-  </button>
+  <button class="close-btn" tabindex="-1" mat-button mat-dialog-close mat-raised-button>Fermer</button>
 </div>

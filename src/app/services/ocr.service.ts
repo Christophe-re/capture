@@ -1,30 +1,35 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable, of, throwError} from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import {map, catchError} from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { base64ToFile } from 'ngx-image-cropper';
 import { BodyOutputType } from 'angular2-toaster';
 import { LinkButtonComponent } from '../link-button/link-button.component';
 import { GlobalToasterService } from './global-toaster.service';
 import { LoadingService } from './loading.service';
-import { calcPossibleSecurityContexts } from '@angular/compiler/src/template_parser/binding_parser';
+import { AuthService } from './auth.service';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OcrService {
-
-  constructor(private http: HttpClient, private globalToasterService: GlobalToasterService, private loadingService: LoadingService) { }
+  constructor(
+    private http: HttpClient,
+    private globalToasterService: GlobalToasterService,
+    private loadingService: LoadingService,
+    private authService: AuthService
+  ) {}
 
   private baseUrl = environment.backend.baseURL;
-  private endPoint = 'dev/sgdbf/v1.0/ocr?key=FT3W8J1LXZ88';
+  private endPoint = 'dev/sgdbf/v1.0/ocr?codeAgence=';
   public listCapture = [];
 
   manageOCR(image) {
     this.loadingService.setLoading();
     const startTimestamp = new Date().getTime();
     this.postOCR(image).subscribe(
-      (val) => {
+      val => {
         const response = this.mapper(val);
         const endTimestamp: number = new Date().getTime();
         const responseTimes = endTimestamp - startTimestamp;
@@ -66,7 +71,6 @@ export class OcrService {
           } else if (val.statut === 1) {
             title = 'Prix correct';
             status = 'success';
-
           } else if (val.statut === 5) {
             title = 'Article inexistant en base de données';
             status = 'info';
@@ -77,7 +81,7 @@ export class OcrService {
               title: title,
               status: status,
             });
-          }else {
+          } else {
             title = 'Erreur Inconnue';
             status = 'unknown';
           }
@@ -93,7 +97,7 @@ export class OcrService {
             image: image,
             title: title,
             status: status,
-          }
+          },
         });
       },
       response => {
@@ -118,14 +122,14 @@ export class OcrService {
     );
   }
 
-  postOCR(image: string): Observable<any>{
+  postOCR(image: string): Observable<any> {
     const file = base64ToFile(image);
     const formData = new FormData();
     formData.append('upload', file);
     // return of({
     //   id: 'f9617d0e-75d6-49a2-bc65-377b9014106f',
     //   code_produit: '6839273',
-  
+
     //   code_zone: '980005',
     //   code_emplacement: '000020',
     //   code_ean_13: '3 388752 070371',
@@ -145,10 +149,9 @@ export class OcrService {
     //     ]
     //   }
     // );
-    return this.http.post<FormData>(`${this.baseUrl}/${this.endPoint}`, formData)
-    .pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<FormData>(`${this.baseUrl}/${this.endPoint}${this.authService.agencyCode}&key=FT3W8J1LXZ88`, formData)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -158,13 +161,10 @@ export class OcrService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
     }
     // Return an observable with a user-facing error message.
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError('Something bad happened; please try again later.');
   }
 
   mapper(val): any {
@@ -174,61 +174,75 @@ export class OcrService {
           name: 'Code Produit',
           order: 1,
           scanReturn: val.code_produit || '-',
-          validField: this.findInvalidFields('code_produit', val.invalid_fields)
+          validField: this.findInvalidFields('code_produit', val.invalid_fields),
         },
         {
           name: 'Code Dispo',
+          class: 'code_dispo',
           order: 2,
           scanReturn: val.code_dispo || '-',
-          validField: this.findInvalidFields('code_dispo', val.invalid_fields)
+          validField: this.findInvalidFields('code_dispo', val.invalid_fields),
         },
         {
           name: 'Code Zone',
+          class: 'code_zone',
           order: 3,
           scanReturn: val.code_zone || '-',
-          validField: this.findInvalidFields('code_zone', val.invalid_fields)
+          validField: this.findInvalidFields('code_zone', val.invalid_fields),
         },
         {
           name: 'Code Emplacement',
+          class: 'code_emplacement',
           order: 4,
           scanReturn: val.code_emplacement || '-',
-          validField: this.findInvalidFields('code_emplacement', val.invalid_fields)
+          validField: this.findInvalidFields('code_emplacement', val.invalid_fields),
         },
         {
           name: 'Prix HT',
-          order: 6,
+          class: 'prix_ht',
+          order: 5,
           scanReturn: val.prix_ht || '-',
-          validField: this.findInvalidFields('prix_ht', val.invalid_fields)
+          validField: this.findInvalidFields('prix_ht', val.invalid_fields),
         },
         {
           name: 'Prix TTC',
-          order: 7,
+          class: 'prix_ttc',
+          order: 6,
           scanReturn: val.prix_ttc || '-',
-          validField: this.findInvalidFields('prix_ttc', val.invalid_fields)
+          validField: this.findInvalidFields('prix_ttc', val.invalid_fields),
         },
         {
           name: 'Code Ean 13',
-          order: 5,
+          class: 'code_ean_13',
+          order: 7,
           scanReturn: val.code_ean_13 || '-',
-          validField: this.findInvalidFields('code_ean_13', val.invalid_fields)
+          validField: this.findInvalidFields('code_ean_13', val.invalid_fields),
+        },
+        {
+          name: 'Stock',
+          class: 'stock',
+          order: 8,
+          scanReturn: val.stock || '-',
+          validField: this.findInvalidFields('stock', val.invalid_fields),
         },
         {
           name: 'Info Scans',
-          order: 8,
+          class: 'texts',
+          order: 9,
           scanReturn: val.texts || '-',
-          validField: this.findInvalidFields('texts', val.invalid_fields)
+          validField: this.findInvalidFields('texts', val.invalid_fields),
         },
       ],
       statut: val.status || '',
-      id: val.id || ''
+      id: val.id || '',
     };
   }
 
-  findInvalidFields(name: string, invalidFields: {name: string, value: any }[]) {
+  findInvalidFields(name: string, invalidFields: { name: string; value: any }[]) {
     if (!invalidFields || !invalidFields.length) {
       return undefined;
     } else {
-      return invalidFields.find(el => el.name === name) ? invalidFields.find(el => el.name === name).value : undefined ;
+      return invalidFields.find(el => el.name === name) ? invalidFields.find(el => el.name === name).value : undefined;
     }
   }
 }

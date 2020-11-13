@@ -34,15 +34,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadingService.unsetLoading();
-    this.subTimer = this.source.subscribe(val => {
-      if (val === 1) {
-        this.renderer.setStyle(this.splashcreen.nativeElement, 'display',  'none');
-        this.renderer.setStyle(this.splashcreen.nativeElement, 'visibility',  'hidden');
-        this.router.navigate(['/inputdirect']);
-        this.subTimer.unsubscribe();
+    // this.subTimer = this.source.subscribe(val => {
+    //   if (val === 1) {
+    //     this.renderer.setStyle(this.splashcreen.nativeElement, 'display',  'none');
+    //     this.renderer.setStyle(this.splashcreen.nativeElement, 'visibility',  'hidden');
+    //     this.router.navigate(['/scan']);
+    //     this.subTimer.unsubscribe();
 
-      }
-    });
+    //   }
+    // });
     this.globalToasterService.getToast().subscribe(toast => {
       this.toasterService.pop(toast);
     });
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subTimer.unsubscribe();
+   // this.subTimer.unsubscribe();
   }
 
 }

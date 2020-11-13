@@ -1,23 +1,16 @@
 <div class="pwa-capture">
   <div class="menu">
-    <a [routerLink]="['/inputdirect']" [routerLinkActive]="'active'">
-      OPTION 1
-    </a>
-    <a [routerLink]="['/mediadevice']" [routerLinkActive]="'active'">
-      OPTION 2
-    </a>
-    <a [routerLink]="['/listcapture']" [routerLinkActive]="'active'">
-      LISTE
-    </a>
-</div>
-<router-outlet class="outlet"></router-outlet>
+    <a [routerLink]="['/scan']" [routerLinkActive]="'active'"> SCAN </a>
+    <a [routerLink]="['/list']" [routerLinkActive]="'active'"> LISTE </a>
+  </div>
+  <router-outlet class="outlet"></router-outlet>
 </div>
 
 <toaster-container [toasterconfig]="config"></toaster-container>
 
-<div #splashcreen class="splashscreen">
+<!--<div #splashcreen class="splashscreen">
   <div class="logo">
-    <img src="./assets/Saint-Gobain_logo.png" alt="">
+     <img src="./assets/Saint-Gobain_logo.png" alt=""> 
     <span>PWA Capture</span>
   </div>
   <div class="containersp">
@@ -25,16 +18,12 @@
       <div class="progress-bar2"></div>
     </div>
   </div>
-</div>
+</div>-->
 
 <div class="loading" *ngIf="loadingService.isLoading">
-  <div class="loading-content ">
+  <div class="loading-content">
     <div class="loading-loader">
       <div class="loader" id="loader-1"></div>
     </div>
   </div>
 </div>
-
-
-
-

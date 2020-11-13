@@ -85,7 +85,7 @@ $bv-theme: mat-light-theme($bv-palette-primary, $bv-palette-accent);
 
 .mat-dialog-content {
   max-height: 100% !important;
-  height: calc(100% - 120px);
+  height: calc(100% - 154px);
   border-bottom: solid 1px $background-primary-color;
 }
 
@@ -115,5 +115,6 @@ button:focus {
 }
 
 .mat-dialog-container {
-   background-color: $background-primary-color;
+  padding: 0 !important;
+  background-color: $background-primary-color;
 }

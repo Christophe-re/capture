@@ -1,4 +1,11 @@
 @import '../../assets/scss/variables.scss';
+h1, .mat-dialog-content, .mat-dialog-actions  {
+  padding: 24px;
+  margin: 0!important;
+}
+h1 {
+  padding-bottom: 12px ;
+}
 
 .img-capture {
   width: 100%;
@@ -8,6 +15,9 @@
 .mat-dialog-actions {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+  border-top: solid 1px grey ;
 }
 
 .mat-dialog-title{
@@ -55,7 +65,9 @@
     color: $info-color;
   }
 }
-
+.texts, .response {
+  margin-top: 20px;
+}
 
 span.key {
   color: $primary-color;

@@ -8,7 +8,7 @@ import { InputdirectComponent } from './inputdirect/inputdirect.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OcrService } from './services/ocr.service';
 import { GlobalToasterService } from './services/global-toaster.service';
 import { ToasterModule } from 'angular2-toaster';
@@ -47,9 +47,10 @@ import { AuthService } from './services/auth.service';
     ImageCropperModule,
     ToasterModule.forRoot(),
     RouterModule.forRoot([
-      { path: 'mediadevice', canActivate: [AuthGuardService], component: MediadeviceComponent },
-      { path: 'inputdirect', canActivate: [AuthGuardService], component: InputdirectComponent },
-      { path: 'listcapture', canActivate: [AuthGuardService], component: ListCaptureComponent },
+      { path: '', redirectTo: 'scan', pathMatch: 'full' },
+      // { path: '/', redirectTo: 'scan', pathMatch: 'full' },
+      { path: 'scan',  canActivate: [AuthGuardService], component: MediadeviceComponent },
+      { path: 'list', canActivate: [AuthGuardService], component: ListCaptureComponent },
       { path: 'login', component: LoginComponent },
     ], { useHash: true }),
   ],
