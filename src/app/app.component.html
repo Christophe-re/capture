@@ -2,6 +2,9 @@
   <div class="menu">
     <a [routerLink]="['/scan']" [routerLinkActive]="'active'"> SCAN </a>
     <a [routerLink]="['/list']" [routerLinkActive]="'active'"> LISTE </a>
+    <button [ngClass]="{'logout-is-hidden': !authService.userIsLogged() }" class="logout" (click)="logout()"mat-icon-button>
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
   </div>
   <router-outlet class="outlet"></router-outlet>
 </div>

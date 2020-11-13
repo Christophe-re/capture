@@ -1,6 +1,7 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { runInThisContext } from 'vm';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -10,23 +11,23 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   model: any = {};
-  wrongPassword = false;
+  wrongPassword: boolean;
   constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.wrongPassword = false;
+  }
 
   login() {
     if (this.model.password && this.model.password.length) {
-
       this.authService.getLoggin(this.model.password.trim()).then(res => {
         if (res) {
-          console.log('here here')
+          this.wrongPassword = false;
           this.router.navigate(['/scan']);
         } else {
           this.wrongPassword = true;
         }
       });
- 
     }
   }
 }

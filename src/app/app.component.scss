@@ -68,6 +68,14 @@
   }
 }
 
+.logout-is-hidden {
+  visibility: hidden;
+}
+
+.logout, .logout *{
+  color: white !important;
+}
+
 @keyframes progress {
   0% {
     width: 0%;

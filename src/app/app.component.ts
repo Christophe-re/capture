@@ -6,6 +6,7 @@ import { Subscription, timer } from 'rxjs';
 import { GlobalToasterService } from './services/global-toaster.service';
 import { LoadingService } from './services/loading.service';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './services/auth.service';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private toasterService: ToasterService,
     private globalToasterService: GlobalToasterService,
     public loadingService: LoadingService,
+    public authService: AuthService
      ) {}
 
   ngOnInit() {
@@ -49,6 +51,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.globalToasterService.removeToast().subscribe(toast => {
       this.toasterService.clear(toast.toastId);
     });
+  }
+
+  public logout() {
+      localStorage.removeItem('authentication');
+      localStorage.removeItem('code');
+      this.router.navigate(['/login']);
   }
 
   ngOnDestroy(): void {
