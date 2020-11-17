@@ -39,7 +39,7 @@ export class OcrService {
         let status: string;
         if (val && val.statut) {
           if (val.statut === 4) {
-            title = 'Données manquantes (scan)';
+            title = 'Pb de scan ';
             status = 'info';
             this.listCapture.push({
               responseTimes: responseTimes,
@@ -49,7 +49,7 @@ export class OcrService {
               status: status,
             });
           } else if (val.statut === 2) {
-            title = 'Prix différent';
+            title = 'Étiquette KO';
             status = 'error';
             this.listCapture.push({
               responseTimes: responseTimes,
@@ -60,7 +60,7 @@ export class OcrService {
             });
           } else if (val.statut === 3) {
             status = 'warning';
-            title = 'Information(s) incorrecte(s)';
+            title = 'Infos non trouvées';
             this.listCapture.push({
               responseTimes: responseTimes,
               response: response,
@@ -69,7 +69,7 @@ export class OcrService {
               status: status,
             });
           } else if (val.statut === 1) {
-            title = 'Prix correct';
+            title = 'Étiquette OK';
             status = 'success';
           } else if (val.statut === 5) {
             title = 'Article inexistant en base de données';
@@ -218,13 +218,13 @@ export class OcrService {
           scanReturn: val.code_ean_13 || '-',
           validField: this.findInvalidFields('code_ean_13', val.invalid_fields),
         },
-        {
-          name: 'Stock',
-          class: 'stock',
-          order: 8,
-          scanReturn: val.stock || '-',
-          validField: this.findInvalidFields('stock', val.invalid_fields),
-        },
+        // {
+        //   name: 'Stock',
+        //   class: 'stock',
+        //   order: 8,
+        //   scanReturn: val.stock || '-',
+        //   validField: this.findInvalidFields('stock', val.invalid_fields),
+        // },
         {
           name: 'Info Scans',
           class: 'texts',

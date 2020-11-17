@@ -1,8 +1,8 @@
 <div class="pwa-capture">
   <div class="menu">
-    <a [routerLink]="['/scan']" [routerLinkActive]="'active'"> SCAN </a>
-    <a [routerLink]="['/list']" [routerLinkActive]="'active'"> LISTE </a>
-    <button [ngClass]="{'logout-is-hidden': !authService.userIsLogged() }" class="logout" (click)="logout()"mat-icon-button>
+    <a [ngClass]="{'menu-is-hidden': !authService.userIsLogged() }" [routerLink]="['/scan']" [routerLinkActive]="'active'"> SCAN </a>
+    <a [ngClass]="{'menu-is-hidden': !authService.userIsLogged() }" [routerLink]="['/list']" [routerLinkActive]="'active'"> LISTE </a>
+    <button [ngClass]="{'menu-is-hidden': !authService.userIsLogged() }" class="logout" (click)="logout()"mat-icon-button>
       <mat-icon>exit_to_app</mat-icon>
     </button>
   </div>

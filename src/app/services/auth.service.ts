@@ -32,7 +32,6 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.postLoggin(code).subscribe(
         val => {
-          console.log('vel', val);
           if (val === 1) {
             localStorage.setItem('authentication', JSON.stringify({ value: true, expiry: new Date().getTime() + 1800000 }));
             localStorage.setItem('code', JSON.stringify({ value: code, expiry: new Date().getTime() + 1800000 }));
