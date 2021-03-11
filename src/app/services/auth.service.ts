@@ -56,8 +56,8 @@ export class AuthService {
   }
 
   private postLoggin(codeAgency: string): Observable<any> {
- //  return of(1);
-    return this.http.post(`${this.baseUrl}${this.endPoint}${codeAgency}?key=FT3W8J1LXZ88`, null).pipe(catchError(this.handleError));
+  // return of(1);
+   return this.http.post(`${this.baseUrl}${this.endPoint}${codeAgency}?key=FT3W8J1LXZ88`, null).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

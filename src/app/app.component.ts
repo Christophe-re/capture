@@ -7,6 +7,7 @@ import { GlobalToasterService } from './services/global-toaster.service';
 import { LoadingService } from './services/loading.service';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './services/auth.service';
+import { OcrService } from './services/ocr.service';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -31,7 +32,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private toasterService: ToasterService,
     private globalToasterService: GlobalToasterService,
     public loadingService: LoadingService,
-    public authService: AuthService
+    public authService: AuthService,
+    public ocrService: OcrService,
      ) {}
 
   ngOnInit() {
@@ -56,6 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public logout() {
       localStorage.removeItem('authentication');
       localStorage.removeItem('code');
+      this.ocrService.cleanList();
       this.router.navigate(['/login']);
   }
 

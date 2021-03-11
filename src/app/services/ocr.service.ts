@@ -25,6 +25,10 @@ export class OcrService {
   private endPoint = 'dev/sgdbf/v1.0/ocr?codeAgence=';
   public listCapture = [];
 
+  public cleanList() {
+    this.listCapture = [];
+  }
+
   manageOCR(image) {
     this.loadingService.setLoading();
     const startTimestamp = new Date().getTime();
